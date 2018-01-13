@@ -2,16 +2,29 @@
 #include <string>
 #include <vector>
 
+//function overloading for when the user does and does not specify a 
+//command line argument
+//------------------------------------------------------------------
+void compareFiles(std::string file1, std::string file2){
+	std::cout << "no option" << std::endl;
+} 
+
+void compareFiles(std::string file1, std::string file2, std::string option) {
+	std::cout << "option" << std::endl;
+}
+
+
+
+
 int main(int argc, char * argv[]){
-	std::cout << argv[1] << std::endl;
-	std::cout << argc << std::endl;
 	if (argc < 3) {
-		return 0;
-	} else if ((argc > 3 && argv[1] != "-l") || (argc > 3 && argv[1] != "-s") ) {
-		std::cout << "invalid --ignore-intial value '" << argv[3] << "'" << std::endl; 
+		std::cout << "invalid number of files" << std::endl;  
+		std::cout << "Try 'cmp --help' for more information" << std::endl;
+	} else if (argc > 3 && std::string(argv[1]) != "-l" && std::string(argv[1]) != "-s") {
+		std::cout << "invalid --ignore-initial value '" << argv[3] << "'" << std::endl; 
 		std::cout << "Try 'cmp --help' for more information" << std::endl;
 	} else {
-		std::cout << "ok" << std::endl;
+		argc > 3 ? compareFiles(std::string(argv[2]), std::string(argv[3]), std::string(argv[1])) : compareFiles(std::string(argv[1]), std::string(argv[2]));
 	}
 	return 0;
 }

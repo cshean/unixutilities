@@ -1,12 +1,23 @@
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <vector>
 
 //function overloading for when the user does and does not specify a 
 //command line argument
 //------------------------------------------------------------------
-void compareFiles(std::string file1, std::string file2){
-	std::cout << "no option" << std::endl;
+void compareFiles(std::string file1Name, std::string file2Name){
+	std::vector<std::string> file1Lines;
+	std::ifstream file1(file1Name);
+	if (file1.is_open()) {
+		std::string fileLine;
+		while (std::getline(file1, fileLine)) {
+
+			file1Lines.push_back(fileLine);
+		}
+	} else {
+		std::cout << "cmp: " << file1Name << ": No such file or directory" << std::endl;
+	}
 } 
 
 void compareFiles(std::string file1, std::string file2, std::string option) {

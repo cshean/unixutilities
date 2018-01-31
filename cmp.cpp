@@ -44,9 +44,10 @@ void compareFiles(std::string file1Name, std::string file2Name){
 		//if opening the file worked
 		if (file2.is_open()) {
 			int index = 0;
-			
+			int numbytes = 0;
 			//while there is a new line in the file, compare it to the old file
 			while (std::getline(file2, fileLine)) {
+				numbytes+=fileLine.size();
 				//if the second file is longer than the first, print that and close file
 				if (index >= file1Lines.size()) {
 					findAndPrintByte("", fileLine, file1Name, file2Name, index);

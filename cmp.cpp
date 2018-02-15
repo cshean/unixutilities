@@ -97,10 +97,6 @@ void compareFiles(Options option){
 	}
 } 
 
-
-
-
-
 int main(int argc, char * argv[]){
 	Options option(argc, argv);
 	compareFiles(option);

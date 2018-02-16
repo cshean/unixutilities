@@ -24,8 +24,8 @@ class Options {
 			// if the number of files is correct
 			} else {
 				//check for command line options, and set the flag based on whether or not the option is selected
+				fileNames.push_back(std::string(argv[1]));
 				fileNames.push_back(std::string(argv[2]));
-				fileNames.push_back(std::string(argv[3]));
 				(std::string(argv[1]) == "-l") ? lOption = true : sOption = true; 
 			}
 		}
@@ -38,11 +38,17 @@ class Options {
 };
 
 void findByte(int index, int numbytes, Options option, string file1Line, string file2Line){
-	for(int i = 0; i < file1Line.size(); ++i){
+	int smallerline, i;
+	int numberOfLines = index + 1;
+	int numberOfBytes = numberOfLines + numbytes;
+	file1Line > file2Line ? smallerline = file2Line.size() : smallerline = file1Line.size();
+	for(i = 0; i < smallerline; ++i){
 		if (file1Line.at(i) != file2Line.at(i)) {
-			cout << option.getFileNames().at(0) << " " << option.getFileNames().at(1) << "differ: byte " << (numbytes + i) << ", line " << index << endl; 
+			cout << option.getFileNames().at(0) << " " << option.getFileNames().at(1) << " differ: byte " << (numberOfBytes + i) << ", line " << numberOfLines << endl; 
+			return;
 		}
 	}
+	cout << "cmp: EOF on " << (file1Line > file2Line ? option.getFileNames().at(1) : option.getFileNames().at(0)) << endl;
 }
 
 //function that takes an Options argument and checks whether or not the two files
@@ -87,6 +93,8 @@ void compareFiles(Options option){
 					file2.close();
 					return;
 				}
+				cout << file1Lines.at(index) << endl;
+				cout << fileLine << endl;
 			}
 		} else {
 			std::cout << "cmp: " << option.getFileNames().at(1) << ": No such file or directory" << std::endl;

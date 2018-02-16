@@ -1,7 +1,2 @@
 this is a test.
-This
-file
-differs
-on
-line
-6
+The Same

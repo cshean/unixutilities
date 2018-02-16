@@ -1,7 +1,2 @@
 this is a test.
-This
-fil
-differs
-on
-line
-7
+Not the same

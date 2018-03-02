@@ -6,35 +6,41 @@
 using namespace std;
 
 class Options {
-	vector<std::string> fileNames;
-	bool lOption = false;
-	bool sOption = false;
-
+	private:
+		vector<std::string> fileNames;
+		bool lOption = false;
+		bool sOption = false;
+		bool quitProgram = false;
 	public: 
 		Options(int argc, char * argv[]){
-
 			//if there are less than two command line args, print error message
 			if (argc < 3) {
 				std::cout << "invalid number of files" << std::endl;  
 				std::cout << "Try 'cmp --help' for more information" << std::endl;
-			//if the option used was invalid, print error message 
-			} else if ((argc > 3 && argc < 5) && (std::string(argv[1]) != "-l" && std::string(argv[1]) != "-s")) {
-				std::cout << "invalid --ignore-initial value '" << argv[3] << "'" << std::endl; 
-				std::cout << "Try 'cmp --help' for more information" << std::endl;
-			// if the number of files is correct
-			} else {
-				//check for command line options, and set the flag based on whether or not the option is selected
-				fileNames.push_back(std::string(argv[1]));
-				fileNames.push_back(std::string(argv[2]));
-				(std::string(argv[1]) == "-l") ? lOption = true : sOption = true; 
+				quitProgram = true;
 			}
+			if (!quitProgram){
+				//check for command line options, and set the flag based on whether or not the option is selected
+				for (int i = 0; i < argc; ++i){
+					if(argv[i] == "-l") {
+						lOption = true;
+					} else if (argv[i] == "-s"){
+						sOption = true;
+					} else if (argv[i][0] == '-'){
+						quitProgram = true;
+					} else {
+						fileNames.push_back(std::string(argv[1]));
+						fileNames.push_back(std::string(argv[2]));
+					}
+				}	
+			}			
 		}
 
 		//accessor methods for classes' variables
 		vector<std::string> getFileNames() { return fileNames; }
 		bool getLOption() { return lOption; }
 		bool getSOption() { return sOption; }
-	
+		bool shouldQuitProgram() { return quitProgram; }
 };
 
 void findByte(int index, int numbytes, Options option, string file1Line, string file2Line){
@@ -107,6 +113,9 @@ void compareFiles(Options option){
 
 int main(int argc, char * argv[]){
 	Options option(argc, argv);
+	if (option.shouldQuitProgram()){
+		return 1;
+	} 
 	compareFiles(option);
 	return 0;
 }

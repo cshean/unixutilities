@@ -14,24 +14,24 @@ class OD {
 				System.out.println("Usage: od [OPTION]... [FILE]...");
 			} else if (args[i].equals("--version")) {
 				System.out.println("od (GNU coreutils) 8.25")
-			//} else if (args[i].contains("-")){
+			} else if (args[i].contains("-")){
 			//   set enum to value
-			// else {
+			} else {
 			//assume it's a file
-			//filenames.add(args[i]);
-			//readFromStdin = false;
+			filenames.add(args[i]);
+			readFromStdin = false;
 			}
 		}
 
 		//attempt to open file, or read from stdin
-		//if (readFromStdin)
-		//	Scanner reader = new Scanner();
-		//	while(stdin)
+		if (readFromStdin) {
+			Scanner reader = new Scanner();
+			while(stdin)
 		//		read
-		//else
+		} else {
 		//   open file
 		//read in all bytes
-
+		}
 
 		//process based on command
 

@@ -1,0 +1,11 @@
+foo
+bar
+42
+1337
+hello
+world
+linus
+torvalds
+python
+is
+awesome
